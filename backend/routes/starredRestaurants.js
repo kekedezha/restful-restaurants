@@ -48,24 +48,31 @@ router.get("/", (req, res) => {
 /**
  * Feature 7: Getting a specific starred restaurant.
  */
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
 
+  const starredRest = STARRED_RESTAURANTS.find(
+    (restaurant) => restaurant.id === id
+  );
 
+  if (!starredRest) {
+    res.sendStatus(404);
+    return;
+  }
+
+  res.json(starredRest);
+});
 
 /**
  * Feature 8: Adding to your list of starred restaurants.
  */
 
-
-
 /**
  * Feature 9: Deleting from your list of starred restaurants.
  */
 
-
 /**
  * Feature 10: Updating your comment of a starred restaurant.
  */
-
-
 
 module.exports = router;
