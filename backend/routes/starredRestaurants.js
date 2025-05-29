@@ -99,12 +99,28 @@ router.delete("/:id", (req, res) => {
 
   STARRED_RESTAURANTS = newListOfStarredRest;
 
-  res.status(200);
+  res.sendStatus(200);
 });
 
 /**
  * Feature 10: Updating your comment of a starred restaurant.
  */
-router.put("/:id", (req, res) => {});
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { newComment } = req.body;
+
+  const starRestToUpdate = STARRED_RESTAURANTS.find(
+    (restaurant) => restaurant.id === id
+  );
+
+  if (!starRestToUpdate) {
+    res.sendStatus(404);
+    return;
+  }
+
+  starRestToUpdate.comment = newComment;
+
+  res.sendStatus(200);
+});
 
 module.exports = router;
